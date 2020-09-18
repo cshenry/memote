@@ -339,66 +339,6 @@ def test_find_disconnected(model):
     assert len(ann["data"]) == 0, ann["message"]
 
 
-@annotate(title="Metabolite Production In Complete Medium", format_type="count")
-def test_find_metabolites_not_produced_with_open_bounds(model):
-    """
-    Expect metabolites to be producible in complete medium.
-
-    In complete medium, a model should be able to divert flux to every
-    metabolite. This test opens all the boundary reactions i.e. simulates a
-    complete medium and checks if any metabolite cannot be produced
-    individually using flux balance analysis. Metabolites that cannot be
-    produced this way are likely orphan metabolites, downstream of reactions
-    with fixed constraints, or blocked by a cofactor imbalance. To pass this
-    test all metabolites should be producible.
-
-    Implementation:
-    Open all model boundary reactions, then for each metabolite in the model
-    add a boundary reaction and maximize it with FBA.
-
-    """
-    ann = test_find_metabolites_not_produced_with_open_bounds.annotation
-    ann["data"] = consistency.find_metabolites_not_produced_with_open_bounds(model)
-    ann["metric"] = len(ann["data"]) / len(model.metabolites)
-    ann["message"] = wrapper.fill(
-        """A total of {} ({:.2%}) metabolites cannot be produced in complete
-        medium: {}""".format(
-            len(ann["data"]), ann["metric"], truncate(ann["data"])
-        )
-    )
-    assert len(ann["data"]) == 0, ann["message"]
-
-
-@annotate(title="Metabolite Consumption In Complete Medium", format_type="count")
-def test_find_metabolites_not_consumed_with_open_bounds(model):
-    """
-    Expect metabolites to be consumable in complete medium.
-
-    In complete medium, a model should be able to divert flux from every
-    metabolite. This test opens all the boundary reactions i.e. simulates a
-    complete medium and checks if any metabolite cannot be consumed
-    individually using flux balance analysis. Metabolites that cannot be
-    consumed this way are likely dead-end metabolites or upstream of reactions
-    with fixed constraints. To pass this test all metabolites should be
-    consumable.
-
-    Implementation:
-    Open all model boundary reactions, then for each metabolite in the model
-    add a boundary reaction and minimize it with FBA.
-
-    """
-    ann = test_find_metabolites_not_consumed_with_open_bounds.annotation
-    ann["data"] = consistency.find_metabolites_not_consumed_with_open_bounds(model)
-    ann["metric"] = len(ann["data"]) / len(model.metabolites)
-    ann["message"] = wrapper.fill(
-        """A total of {} ({:.2%}) metabolites cannot be consumed in complete
-        medium: {}""".format(
-            len(ann["data"]), ann["metric"], truncate(ann["data"])
-        )
-    )
-    assert len(ann["data"]) == 0, ann["message"]
-
-
 @annotate(title="Unbounded Flux In Default Medium", format_type="percent")
 def test_find_reactions_unbounded_flux_default_condition(model):
     """
