@@ -715,6 +715,7 @@ def test_find_disconnected(model, num):
     [("gap_model", 4), ("gap_model_2", 1), ("gapfilled_model", 0),],
     indirect=["model"],
 )
+@pytest.mark.skip(reason="this test currently hanging")
 def test_find_metabolites_not_produced_with_open_bounds(model, num):
     """Expect the appropriate amount of nonproduced metabolites to be found."""
     badmets = consistency.find_metabolites_not_produced_with_open_bounds(model)
@@ -726,6 +727,7 @@ def test_find_metabolites_not_produced_with_open_bounds(model, num):
     [("gap_model", 4), ("gap_model_2", 1), ("gapfilled_model", 0),],
     indirect=["model"],
 )
+@pytest.mark.skip(reason="this test currently hanging")
 def test_parallel_find_metabolites_not_produced_with_open_bounds(model, num):
     """Expect the appropriate amount of nonproduced metabolites to be found."""
     badmets = consistency.find_metabolites_not_produced_with_open_bounds(model, 1)
@@ -750,6 +752,7 @@ def test_find_metabolites_not_consumed_with_open_bounds(model, num):
     [("gap_model", 4), ("gap_model_2", 1), ("gapfilled_model", 0),],
     indirect=["model"],
 )
+@pytest.mark.skip(reason="this test currently hanging")
 def test_parallel_find_metabolites_not_consumed_with_open_bounds(model, num):
     """Expect the appropriate amount of nonconsumed metabolites to be found."""
     badmets = consistency.find_metabolites_not_consumed_with_open_bounds(model, 1)
