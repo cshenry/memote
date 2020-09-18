@@ -709,57 +709,7 @@ def test_find_disconnected(model, num):
     disconnected = consistency.find_disconnected(model)
     assert len(disconnected) == num
 
-
-@pytest.mark.parametrize(
-    "model, num",
-    [("gap_model", 4), ("gap_model_2", 1), ("gapfilled_model", 0),],
-    indirect=["model"],
-)
-@pytest.mark.skip(reason="this test currently hanging")
-def test_find_metabolites_not_produced_with_open_bounds(model, num):
-    """Expect the appropriate amount of nonproduced metabolites to be found."""
-    badmets = consistency.find_metabolites_not_produced_with_open_bounds(model)
-    assert len(badmets) == num
-
-
-@pytest.mark.parametrize(
-    "model, num",
-    [("gap_model", 4), ("gap_model_2", 1), ("gapfilled_model", 0),],
-    indirect=["model"],
-)
-@pytest.mark.skip(reason="this test currently hanging")
-def test_parallel_find_metabolites_not_produced_with_open_bounds(model, num):
-    """Expect the appropriate amount of nonproduced metabolites to be found."""
-    badmets = consistency.find_metabolites_not_produced_with_open_bounds(model, 1)
-    multi_badmets = consistency.find_metabolites_not_produced_with_open_bounds(model, 2)
-    assert badmets == multi_badmets
-
-
-@pytest.mark.parametrize(
-    "model, num",
-    [("gap_model", 4), ("gap_model_2", 1), ("gapfilled_model", 0),],
-    indirect=["model"],
-)
-@pytest.mark.skip(reason="this test currently hanging")
-def test_find_metabolites_not_consumed_with_open_bounds(model, num):
-    """Expect the appropriate amount of nonconsumed metabolites to be found."""
-    badmets = consistency.find_metabolites_not_consumed_with_open_bounds(model)
-    assert len(badmets) == num
-
-
-@pytest.mark.parametrize(
-    "model, num",
-    [("gap_model", 4), ("gap_model_2", 1), ("gapfilled_model", 0),],
-    indirect=["model"],
-)
-@pytest.mark.skip(reason="this test currently hanging")
-def test_parallel_find_metabolites_not_consumed_with_open_bounds(model, num):
-    """Expect the appropriate amount of nonconsumed metabolites to be found."""
-    badmets = consistency.find_metabolites_not_consumed_with_open_bounds(model, 1)
-    multi_badmets = consistency.find_metabolites_not_consumed_with_open_bounds(model, 2)
-    assert badmets == multi_badmets
-
-
+    
 @pytest.mark.parametrize(
     "model, fraction",
     [
